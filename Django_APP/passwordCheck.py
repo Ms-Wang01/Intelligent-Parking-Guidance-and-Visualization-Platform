@@ -21,7 +21,7 @@ def simplePasswordCheck(user_name, user_password):
 
 # 添加数据方法
 def add_user(user_name, user_password):
-    Check1 = CheckDB(user_id=user_name, user_password=user_password)
+    Check1 = CheckDB(user_id = user_name, user_password = user_password)
     Check1.save()
 
 

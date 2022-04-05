@@ -32,6 +32,7 @@ urlpatterns = [
     path('normalType/<str:des_lon>/<str:des_lat>/', views.normal_type),
     path('renew/', views.renew),
     path('logInCheck/<str:user_name>/<str:user_password>/', views.logIn_check),
+    path('register/<str:user_name>/<str:user_password>/', views.register),
     path('admin/', admin.site.urls),
     path('visualization/', include('visualization.urls'))
 ]

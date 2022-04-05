@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from Django_APP.passwordCheck import simplePasswordCheck as passwordCheck
+from Django_APP.passwordCheck import simplePasswordCheck as passwordCheck, add_user
 from Django_APP.load_lot_pre_remain import LotsInfoAndRemain
 from Django_APP.recom.recom_launcher import Initializer
 from Django_APP.recom.user import User
@@ -328,6 +328,11 @@ def logIn_check(request, user_name, user_password):
 
     judgement = passwordCheck(user_name, user_password)
     return render(request, "logInCheck.html", {"data": judgement})
+
+
+def register(request, user_name, user_password):
+    add_user(user_name, user_password)
+    return render(request, "register.html", {"data": "/logInCheck/" + user_name + "/" + user_password})
 
 
 def normal_type(request, des_lon, des_lat):

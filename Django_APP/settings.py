@@ -81,23 +81,23 @@ WSGI_APPLICATION = 'ispark.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE':  'django.db.backends.mysql',
-        'NAME': 'ispark',
-        'HOST': '8.141.180.239',
-        'USER': 'demo',
-        'PASSWORD': 'Bupt0413',
-        'PORT': '3306',
-    },
-
     # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'eparking_v1',
-    #     'HOST': 'localhost',
-    #     'USER': 'root',
-    #     'PASSWORD': 'w4zhjiqi',
+    #     'ENGINE':  'django.db.backends.mysql',
+    #     'NAME': 'ispark',
+    #     'HOST': '8.141.180.239',
+    #     'USER': 'demo',
+    #     'PASSWORD': 'Bupt0413',
     #     'PORT': '3306',
     # },
+
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'eparking_v1',
+        'HOST': 'localhost',
+        'USER': 'root',
+        'PASSWORD': 'w4zhjiqi',
+        'PORT': '3306',
+    },
 }
 
 # Password validation
