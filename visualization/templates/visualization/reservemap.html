@@ -1,0 +1,221 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>路书</title>
+	<style type="text/css">
+		body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+
+		#map_canvas{width:100%;height:100%;}
+		#result {width:100%}
+	</style>
+	<script src="//api.map.baidu.com/api?v=2.0&ak=BaBL845x6Uw8C8NGppQCbQITX3U8u19s"></script>
+	<script type="text/javascript" src="//api.map.baidu.com/library/LuShu/1.2/src/LuShu_min.js"></script>
+</head>
+<body>
+
+
+    <div class="daohang_div">
+        <label >出发地</label>
+        <select class="daohang_xialakuang" name="daohang_xuanze" id="input_select" >
+
+            <option selected value="深圳市南山区南山小学">深圳市南山区南山小学</option>
+            <option value="荔林公园">荔林公园</option>
+            <option value="中信红树湾">中信红树湾</option>
+
+        </select>
+        <label >目的地</label>
+        <select class="daohang_xialakuang2" name="daohang_xuanze2" id="input_select2" >
+            <option selected value="观海台">观海台</option>
+            <option value="麦当劳">麦当劳</option>
+            <option value="大疆体验店">大疆体验店</option>
+            <option value="正夫口腔">正夫口腔</option>
+            <option value="海岸城">海岸城</option>
+
+        </select>
+        <label>导航模式</label>
+        <select class="daohang_xialakuang3" name="daohang_xuanze3" id="input_select3" >
+            <option selected value="1">预约停车位</option>
+            <option value="0">推荐停车位</option>
+
+        </select>
+        <button type="submit" class="daohang_button" onclick="start()">开始导航</button >
+        <a  href="../test">返回主页面</a>
+
+    </div>
+
+
+	<div id="map_canvas"></div>
+	<div id="result"></div>
+
+	<script>
+
+
+
+
+    function start(){
+        //print("hello world!")
+        var oOpt = document.getElementById('input_select3').value;
+        if(oOpt=='0'){
+               map.enableScrollWheelZoom();
+        map.centerAndZoom(new BMap.Point(113.92, 22.51), 13);
+         /*map.addEventListener("click",function(e){
+            alert(e.point.lng + "," + e.point.lat);
+        });*/
+        var lushu;
+        // 实例化一个驾车导航用来生成路线
+            map.clearOverlays();
+
+        var drv = new BMap.DrivingRoute('北京', {
+            onSearchComplete: function (res) {
+                if (drv.getStatus() == BMAP_STATUS_SUCCESS) {
+                    var plan = res.getPlan(0);
+                    var arrPois = [];
+                    for (var j = 0; j < plan.getNumRoutes(); j++) {
+                        var route = plan.getRoute(j);
+                        arrPois = arrPois.concat(route.getPath());
+                    }
+                    map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#111'}));
+                    map.setViewport(arrPois);
+
+                    lushu = new BMapLib.LuShu(map, arrPois, {
+                        defaultContent: "前往目的地",//"从天安门到百度大厦"
+                        autoView: true,//是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
+                        icon: new BMap.Icon('http://api.map.baidu.com/img/markers.png', new BMap.Size(52, 26), {anchor: new BMap.Size(27, 13)}),
+                        speed: 4500,
+                        enableRotation: true,//是否设置marker随着道路的走向进行旋转
+                        landmarkPois: [
+                            {lng:113.9455331701307,lat:22.523203073687625,html:'无空闲停车位，正在重新规划路线',pauseTime:3},
+                            {lng:113.941227,lat:22.523937,html:'已成功停车',pauseTime:300}
+                        ]
+
+                    });
+                }
+            }
+        });
+        var start=new BMap.Point(113.89112954198365, 22.51912820882850);
+        var end=new BMap.Point(113.94122708415283,22.52408979411016);
+
+        var p3 =new BMap.Point(113.9455331701307, 22.523203073687625);
+        drv.search(start, end,{waypoints:[p3]});
+
+        setTimeout(function(){
+            lushu.start();
+        },1500);
+
+
+        }
+        else {
+
+            var lushu;
+	// 实例化一个驾车导航用来生成路线
+            var drv2 = 2;
+            var drv = 1;
+
+
+    /*map.addEventListener("click",function(e){
+		alert(e.point.lng + "," + e.point.lat);
+	});*/
+
+            map.clearOverlays();
+                drv = new BMap.DrivingRoute('北京', {
+                    onSearchComplete: function(res) {
+                    if (drv.getStatus() == BMAP_STATUS_SUCCESS) {
+                        var plan = res.getPlan(0);
+                        var arrPois =[];
+                        for(var j=0;j<plan.getNumRoutes();j++){
+                            var route = plan.getRoute(j);
+                            arrPois= arrPois.concat(route.getPath());
+                        }
+                    map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#111'}));
+                    map.setViewport(arrPois);
+
+                    lushu = new BMapLib.LuShu(map,arrPois,{
+                    defaultContent:"正在前往目的地",//"从天安门到百度大厦"
+                    autoView:true,//是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
+                    icon  : new BMap.Icon('http://api.map.baidu.com/img/markers.png', new BMap.Size(52,26),{anchor : new BMap.Size(27, 13)}),
+                    speed: 5000,
+                    enableRotation:true,//是否设置marker随着道路的走向进行旋转
+						landmarkPois: [
+						{lng:113.939865,lat:22.527322,html:'分配到更好停车位，正在切换（请按数字4继续）',pauseTime:300}
+					]
+                    });
+                    }
+                }
+            });
+            var start=new BMap.Point(113.89112954198362, 22.51912820882851);
+            var end=new BMap.Point(113.94118, 22.524229);
+            var p3 = new BMap.Point(113.939865,22.527322);
+	        drv.search(start, end,{waypoints:[p3]});
+
+    setTimeout(function(){
+		lushu.start();
+	},1500);
+    document.onkeydown=function(event){
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+
+            if(e.keyCode == 50){
+                lushu.start();
+            }
+            if(e.keyCode == 51){
+                lushu.pause();
+            }
+            if(e.keyCode == 52){
+                map.clearOverlays();
+                drv2 = new BMap.DrivingRoute('北京', {
+                    onSearchComplete: function(res) {
+                    if (drv.getStatus() == BMAP_STATUS_SUCCESS) {
+                        var plan = res.getPlan(0);
+                        var arrPois =[];
+                        for(var j=0;j<plan.getNumRoutes();j++){
+                            var route = plan.getRoute(j);
+                            arrPois= arrPois.concat(route.getPath());
+                        }
+                    map.addOverlay(new BMap.Polyline(arrPois, {strokeColor: '#111'}));
+                    map.setViewport(arrPois);
+
+                    lushu2 = new BMapLib.LuShu(map,arrPois,{
+                    defaultContent:"正在前往目的地",//"从天安门到百度大厦"
+                    autoView:true,//是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
+                    icon  : new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(52,26),{anchor : new BMap.Size(27, 13)}),
+                    speed: 500,
+                    enableRotation:true,//是否设置marker随着道路的走向进行旋转
+                	landmarkPois: [
+						{lng:113.945129,lat:22.523245,html:'已到达目的地',pauseTime:300}
+					]});
+            }
+        }
+    });
+                var start=new BMap.Point(113.939865,22.527322);
+                var end=new BMap.Point(113.945129, 22.52325);
+                var p4 =new BMap.Point(113.945129,22.523245);
+	            drv2.search(start, end,{waypoints:[p4]});
+	            setTimeout(function(){
+				lushu2.start();
+				},500);
+
+            }
+        if(e.keyCode == 53){
+            lushu2.start();
+        }
+        if(e.keyCode == 54){
+            var point2 = new BMap.Point(113.944145,22.523768);
+	        var marker2 = new BMap.Marker(point2);  // 创建标注
+	        map.addOverlay(marker2);               // 将标注添加到地图中
+	        marker2.setAnimation(BMAP_ANIMATION_BOUNCE);
+        }
+    };
+
+        }
+
+    }
+
+
+
+	var map = new BMap.Map('map_canvas');
+    map.enableScrollWheelZoom();
+	map.centerAndZoom(new BMap.Point(113.92, 22.51), 13);
+
+
+</script>
+</body>
+</html>
