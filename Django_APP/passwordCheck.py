@@ -6,11 +6,8 @@ from .models import Admin, BerthInfo, Parkingdata, RoadSegmentInfo, User  # å¯¼å
 def simplePasswordCheck(user_name, user_password):
     try:
         user = User.objects.get(user_name=user_name)
-        if user:
-            if user.user_password == user_password:
-                judgement = 1
-            else:
-                judgement = 0
+        if user.user_password == user_password:
+            judgement = 1
         else:
             judgement = 0
     except:

@@ -479,11 +479,11 @@ def orderhistory(request, user_name):
         output_data = []
         for item in querySet_to_list(orderData.values()):
             roadName = find_road_name(item["Road_segment_id_id"])
-            data_item = {"name": item["Parkingdata_id"],
-                         "id": item["service_init_time"],
-                         "capacity": roadName,
-                         "occupy": item["parking_duration"],
-                         "remain": item["parking_duration"]
+            data_item = {"订单编号": item["Parkingdata_id"],
+                         "订单时间": str(item["service_init_time"]),
+                         "停车路段名字": roadName,
+                         "停车时间": item["parking_duration"],
+                         "收费": item["parking_duration"]
                          }
             output_data.append(data_item)
         # data = json.dumps(output_data, ensure_ascii=False)

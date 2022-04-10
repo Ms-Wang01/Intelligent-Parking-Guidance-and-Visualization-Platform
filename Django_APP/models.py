@@ -71,7 +71,7 @@ class RoadSegmentInfo(models.Model):
 class User(models.Model):
     uid = models.AutoField(db_column='Uid', primary_key=True)  # Field name made lowercase.
     user_name = models.CharField(max_length=45, blank=True, null=True)
-    user_password = models.CharField(db_column='User_password', max_length=45)  # Field name made lowercase.
+    user_password = models.CharField(db_column='user_password', max_length=45)  # Field name made lowercase.
     user_phone_number = models.CharField(db_column='User_phone_number', max_length=45)  # Field name made lowercase.
     balance = models.DecimalField(db_column='balance', decimal_places=2, max_digits=10)
 
