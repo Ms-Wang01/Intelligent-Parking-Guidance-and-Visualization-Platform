@@ -35,7 +35,7 @@ class BerthInfo(models.Model):
 
 
 class Parkingdata(models.Model):
-    parkingdata_id = models.AutoField(db_column='ParkingData_id', primary_key=True)  # Field name made lowercase.
+    Parkingdata_id = models.AutoField(db_column='ParkingData_id', primary_key=True)  # Field name made lowercase.
     user_lon = models.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
     user_lat = models.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
     service_type = models.CharField(max_length=1, blank=True, null=True)
@@ -47,9 +47,9 @@ class Parkingdata(models.Model):
     service_init_time = models.DateTimeField(db_column='Service_init_time', blank=True,
                                              null=True)  # Field name made lowercase.
     parking_duration = models.IntegerField(blank=True, null=True)
-    user_uid = models.ForeignKey('User', models.DO_NOTHING, db_column='User_Uid')  # Field name made lowercase.
-    road_segment = models.ForeignKey('RoadSegmentInfo', models.DO_NOTHING,
-                                     db_column='Road_segment_id')  # Field name made lowercase.
+    User_Uid = models.ForeignKey('User', models.DO_NOTHING, db_column='User_Uid')  # Field name made lowercase.
+    Road_segment_id = models.ForeignKey('RoadSegmentInfo', models.DO_NOTHING,
+                                        db_column='Road_segment_id')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -73,6 +73,7 @@ class User(models.Model):
     user_name = models.CharField(max_length=45, blank=True, null=True)
     user_password = models.CharField(db_column='User_password', max_length=45)  # Field name made lowercase.
     user_phone_number = models.CharField(db_column='User_phone_number', max_length=45)  # Field name made lowercase.
+    balance = models.DecimalField(db_column='balance', decimal_places=2, max_digits=10)
 
     class Meta:
         managed = False

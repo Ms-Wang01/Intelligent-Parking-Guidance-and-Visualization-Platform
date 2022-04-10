@@ -48,10 +48,16 @@ def update_user(user_name, user_password):
 
 # 发送预约信息 对于数据库相当于添加操作
 def send_appointment_message(user_name, dest_lon, dest_lat, service_init_time):
-    uid = User.objects.get(user_name=user_name).values('Uid')
-    road_segment_id = RoadSegmentInfo.objects.get(longitude=dest_lon, latitude=dest_lat).first().values('segment_id')
+    user = User.objects.get(user_name=user_name)
+    uid = user.uid
+    print(uid)
+    User_Uid = User.objects.get(uid=uid)
+    road = RoadSegmentInfo.objects.get(longitude=dest_lon, latitude=dest_lat)
+    segment_id = road.segment_id
+    Road_segment_id = RoadSegmentInfo.objects.get(segment_id=segment_id)
+    print(Road_segment_id)
     parking_data = Parkingdata(dest_lon=dest_lon, dest_lat=dest_lat, service_init_time=service_init_time,
-                               Road_segment_id=road_segment_id, User_Uid=uid)
+                               Road_segment_id=Road_segment_id, User_Uid=User_Uid)
     parking_data.save()
 
 
@@ -59,13 +65,22 @@ def send_appointment_message(user_name, dest_lon, dest_lat, service_init_time):
 def find_history_order(user_name):
     try:
         user = User.objects.get(user_name=user_name)
-        if user:
-            uid = User.objects.get(user_name=user_name).values('Uid')
-            parking_data = Parkingdata.objects.filter(User_uid=uid)
+        uid = user.uid
+        parking_data = Parkingdata.objects.filter(User_Uid=uid)
+        if parking_data:
             return parking_data
         else:
-            # judge = "该用户没有历史订单记录！"
-            return 0
+            judge = 0
+            return judge
     except:
-        judge = "Error"
+        judge = 0
         return judge
+
+
+# 以停车路段id查找路段名
+def find_road_name(Road_segment_id):
+    road = RoadSegmentInfo.objects.get(Road_segment_id=Road_segment_id)
+    road_name = road.road_segment_name
+    return road_name
+# if __name__ == '__main__':
+#     send_appointment_message('2333@qq.com','130','131','2022-10-04-17-17')
