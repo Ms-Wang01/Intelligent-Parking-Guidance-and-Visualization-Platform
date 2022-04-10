@@ -463,27 +463,33 @@ def appointment(request, user_name, des_lon, des_lat, reserve_time):
     return render(request, "appointment.html")
 
 
+def querySet_to_list(qs):
+    return [dict(q) for q in qs]
+
+
 # 没写完
 def orderhistory(request, user_name):
     orderData = find_history_order(user_name)
-    print(orderData[0].Road_segment_id)
     if orderData == 0:
         data = 0
     else:
+        for orderDataList in querySet_to_list(orderData.values()):
+            pass
+        print(orderDataList)
         output_data = []
-        for item in orderData:
-            print(item.Road_segment_id)
-            print(item.object.objects.values('Road_segment_id'))
-            roadName = find_road_name(item["Road_segment_id"])
-            data_item = {"name": item["ParkingData_id"],
-                         "id": item["Service_init_time"],
+        for item in querySet_to_list(orderData.values()):
+            roadName = find_road_name(item["Road_segment_id_id"])
+            data_item = {"name": item["Parkingdata_id"],
+                         "id": item["service_init_time"],
                          "capacity": roadName,
                          "occupy": item["parking_duration"],
-                         "remain": item["parking_duration"]}
+                         "remain": item["parking_duration"]
+                         }
             output_data.append(data_item)
-        data = json.dumps(output_data, ensure_ascii=False)
-    return render(request, "park_data.html", {"data": data})
+        # data = json.dumps(output_data, ensure_ascii=False)
+    return render(request, "park_data.html", {"data": output_data})
     # return None
+
 
 def wallet(request):
     return None

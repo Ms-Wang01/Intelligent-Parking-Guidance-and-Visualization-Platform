@@ -68,6 +68,7 @@ def find_history_order(user_name):
         uid = user.uid
         parking_data = Parkingdata.objects.filter(User_Uid=uid)
         if parking_data:
+            # print(parking_data.values())
             return parking_data
         else:
             judge = 0
@@ -79,7 +80,7 @@ def find_history_order(user_name):
 
 # 以停车路段id查找路段名
 def find_road_name(Road_segment_id):
-    road = RoadSegmentInfo.objects.get(Road_segment_id=Road_segment_id)
+    road = RoadSegmentInfo.objects.get(segment_id=Road_segment_id)
     road_name = road.road_segment_name
     return road_name
 # if __name__ == '__main__':
