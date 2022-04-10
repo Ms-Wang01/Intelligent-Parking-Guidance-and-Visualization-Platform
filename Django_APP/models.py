@@ -35,7 +35,7 @@ class BerthInfo(models.Model):
 
 
 class Parkingdata(models.Model):
-    parkingdata_id = models.IntegerField(db_column='ParkingData_id', primary_key=True)  # Field name made lowercase.
+    parkingdata_id = models.AutoField(db_column='ParkingData_id', primary_key=True)  # Field name made lowercase.
     user_lon = models.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
     user_lat = models.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
     service_type = models.CharField(max_length=1, blank=True, null=True)

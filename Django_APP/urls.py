@@ -34,5 +34,5 @@ urlpatterns = [
     path('logInCheck/<str:user_name>/<str:user_password>/', views.logIn_check),
     path('register/<str:user_name>/<str:user_password>/', views.register),
     path('admin/', admin.site.urls),
-    path('visualization/', include('visualization.urls'))
+    path('visualization/', include('visualization.urls')),
 ]
