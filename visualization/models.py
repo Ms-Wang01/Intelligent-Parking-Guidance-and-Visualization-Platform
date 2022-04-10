@@ -66,3 +66,4 @@ class RoadShape(models.Model):
 
     class Meta:
         managed = True
+
