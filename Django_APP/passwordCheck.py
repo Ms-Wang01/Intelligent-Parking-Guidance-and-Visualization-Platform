@@ -64,8 +64,8 @@ def find_history_order(user_name):
             parking_data = Parkingdata.objects.filter(User_uid=uid)
             return parking_data
         else:
-            judge = "该用户没有历史订单记录！"
-            return judge
+            # judge = "该用户没有历史订单记录！"
+            return 0
     except:
         judge = "Error"
         return judge

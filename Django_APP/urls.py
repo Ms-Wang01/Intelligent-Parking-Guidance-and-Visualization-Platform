@@ -35,4 +35,8 @@ urlpatterns = [
     path('register/<str:user_name>/<str:user_password>/', views.register),
     path('admin/', admin.site.urls),
     path('visualization/', include('visualization.urls')),
+    path('appointment/<str:user_name>/<str:des_lon>/<str:des_lat>/<str:reserve_time>/', views.appointment),
+    path('orderhistory/<str:user_name>/', views.orderhistory),
+    path('wallet/<str:user_name>/', views.wallet),
+
 ]

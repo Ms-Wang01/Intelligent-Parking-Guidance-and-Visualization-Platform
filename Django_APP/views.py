@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from Django_APP.passwordCheck import simplePasswordCheck as passwordCheck, add_user
+from Django_APP.passwordCheck import simplePasswordCheck as passwordCheck, add_user, send_appointment_message, \
+    find_history_order
 from Django_APP.load_lot_pre_remain import LotsInfoAndRemain
 from Django_APP.recom.recom_launcher import Initializer
 from Django_APP.recom.user import User
@@ -325,7 +326,6 @@ def renew(request):
 
 
 def logIn_check(request, user_name, user_password):
-
     judgement = passwordCheck(user_name, user_password)
     return render(request, "logInCheck.html", {"data": judgement})
 
@@ -445,6 +445,7 @@ def baidu(request):
 
     return render(request, "baidu.html", {"data": json.dumps(data)})
 
+
 def login(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -452,3 +453,22 @@ def login(request):
         print(username, password)
         return redirect('/index/')
     return render(request, 'login/login.html')
+
+
+# def logIn_check(request, user_name, user_password):
+#     judgement = passwordCheck(user_name, user_password)
+#     return render(request, "logInCheck.html", {"data": judgement})
+def appointment(request, user_name, des_lon, des_lat, reserve_time):
+    send_appointment_message(user_name, des_lon, des_lat, reserve_time)
+    return render(request, "appointment.html")
+
+
+# 没写完
+# def orderhistory(request, user_name):
+#     datagetted = find_history_order(user_name)
+#     datagetted.all()
+#     return render(request, "appointment.html")
+
+
+def wallet(request):
+    return None
