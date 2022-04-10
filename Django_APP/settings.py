@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'visualization.apps.VisualizationConfig',
+    'Django_APP.apps.DjangoAPPConfig'
 ]
 
 MIDDLEWARE = [
@@ -90,12 +91,21 @@ DATABASES = {
     #     'PORT': '3306',
     # },
 
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'eparking_v1',
+    #     'HOST': 'localhost',
+    #     'USER': 'root',
+    #     'PASSWORD': 'w4zhjiqi',
+    #     'PORT': '3306',
+    # },
+
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'eparking_v1',
+        'NAME': 'PARKING',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': 'w4zhjiqi',
+        'PASSWORD': 'QWER123@',
         'PORT': '3306',
     },
 }
