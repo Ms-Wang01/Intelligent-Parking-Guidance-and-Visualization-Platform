@@ -9,7 +9,7 @@ def simplePasswordCheck(user_name, user_password):
         if user.user_password == user_password:
             judgement = 1
         else:
-            judgement = 0
+            judgement = 2
     except:
         judgement = 0
     return judgement
@@ -17,8 +17,15 @@ def simplePasswordCheck(user_name, user_password):
 
 # 添加数据方法
 def add_user(user_name, user_password):
-    user = User(user_name=user_name, user_password=user_password)
-    user.save()
+    a = User.objects.filter(user_name=user_name)
+    judge = a.count()
+    print(judge)
+    if judge == 0:
+        user = User(user_name=user_name, user_password=user_password)
+        user.save()
+        return 1
+    else:
+        return 0
 
 
 # 删除数据
@@ -80,5 +87,12 @@ def find_road_name(Road_segment_id):
     road = RoadSegmentInfo.objects.get(segment_id=Road_segment_id)
     road_name = road.road_segment_name
     return road_name
+
+
+# 钱包
+def find_wallet(user_name):
+    user = User.objects.get(user_name=user_name)
+    print(user.balance)
+    return user.balance
 # if __name__ == '__main__':
 #     send_appointment_message('2333@qq.com','130','131','2022-10-04-17-17')

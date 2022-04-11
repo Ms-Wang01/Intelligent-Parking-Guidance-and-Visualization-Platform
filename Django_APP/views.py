@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from Django_APP.passwordCheck import simplePasswordCheck as passwordCheck, add_user, send_appointment_message, \
-    find_history_order, find_road_name
+    find_history_order, find_road_name, find_wallet
 from Django_APP.load_lot_pre_remain import LotsInfoAndRemain
 from Django_APP.recom.recom_launcher import Initializer
 from Django_APP.recom.user import User
@@ -331,9 +331,11 @@ def logIn_check(request, user_name, user_password):
 
 
 def register(request, user_name, user_password):
-    add_user(user_name, user_password)
-    return render(request, "register.html", {"data": "/logInCheck/" + user_name + "/" + user_password})
-
+    judge = add_user(user_name, user_password)
+    if (judge == 1):
+        return render(request, "register.html", {"data": "/logInCheck/" + user_name + "/" + user_password})
+    else:
+        return render(request, "register.html", {"data": "用户名重复！"})
 
 def normal_type(request, des_lon, des_lat):
     # des_lon = float(des_lon)
@@ -491,5 +493,6 @@ def orderhistory(request, user_name):
     # return None
 
 
-def wallet(request):
-    return None
+def wallet(request, user_name):
+    balance = find_wallet(user_name)
+    return render(request, "wallet.html", {"data": balance})
