@@ -473,6 +473,7 @@ def querySet_to_list(qs):
 def orderhistory(request, user_name):
     orderData = find_history_order(user_name)
     if orderData == 0:
+        output_data = []
         data = 0
     else:
         for orderDataList in querySet_to_list(orderData.values()):

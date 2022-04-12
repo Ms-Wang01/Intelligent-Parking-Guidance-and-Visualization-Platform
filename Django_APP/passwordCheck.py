@@ -21,7 +21,7 @@ def add_user(user_name, user_password):
     judge = a.count()
     print(judge)
     if judge == 0:
-        user = User(user_name=user_name, user_password=user_password)
+        user = User(user_name=user_name, user_password=user_password, balance=0)
         user.save()
         return 1
     else:
